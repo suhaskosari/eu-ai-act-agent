@@ -1,4 +1,4 @@
-from langchain_ollama import OllamaLLM
+from langchain_groq import ChatGroq
 from app.agent.state import AgentState
 from dotenv import load_dotenv
 import os
@@ -6,9 +6,9 @@ import uuid
 
 load_dotenv()
 
-llm = OllamaLLM(
-    base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
-    model=os.getenv("OLLAMA_MODEL", "llama3.2")
+llm = ChatGroq(
+    api_key=os.getenv("GROQ_API_KEY"),
+    model="llama-3.3-70b-versatile"
 )
 
 
@@ -30,7 +30,7 @@ Respond in this exact format:
 CATEGORY: <one of UNACCEPTABLE/HIGH/LIMITED/MINIMAL>
 REASONING: <2-3 sentences explaining why>"""
 
-    response = llm.invoke(prompt)
+    response = llm.invoke(prompt).content
     lines = response.strip().split('\n')
 
     category = "MINIMAL"
@@ -71,7 +71,7 @@ Focus on:
 List each gap on a new line starting with "GAP:"
 If no gaps, write "GAP: None identified" """
 
-    response = llm.invoke(prompt)
+    response = llm.invoke(prompt).content
     gaps = []
 
     for line in response.strip().split('\n'):
@@ -116,7 +116,7 @@ Write a structured audit document with these sections:
 
 Be formal, specific, and actionable."""
 
-    audit_doc = llm.invoke(prompt)
+    audit_doc = llm.invoke(prompt).content
 
     reasoning = state.get("agent_reasoning", [])
     reasoning.append("Audit document generated successfully")
