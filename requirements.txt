@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+langgraph
+langchain
+langchain-community
+sqlalchemy
+psycopg2-binary==2.9.12
+python-dotenv
+pydantic
+httpx
