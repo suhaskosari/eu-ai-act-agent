@@ -2,6 +2,8 @@
 
 A LangGraph-powered agent that scans AI systems for EU AI Act compliance, classifies risk categories, identifies compliance gaps, and generates audit-ready documentation with a human-in-the-loop approval step.
 
+**Live API**: https://eu-ai-act-agent.salmonmeadow-a1fcad59.swedencentral.azurecontainerapps.io/docs
+
 ## What it does
 
 - Accepts an AI system description as input
@@ -16,13 +18,14 @@ A LangGraph-powered agent that scans AI systems for EU AI Act compliance, classi
 
 - **Agent framework**: LangGraph
 - **API**: FastAPI
-- **Database**: PostgreSQL (Docker)
-- **LLM**: Llama 3.2 via Ollama (runs locally, no API cost)
+- **Database**: PostgreSQL on Azure (local: Docker)
+- **LLM**: Llama 3.3 70B via Groq API
 - **ORM**: SQLAlchemy
+- **Deployment**: Azure Container Apps (Sweden Central)
 
 ## Setup
 
-**Prerequisites**: Docker Desktop, Python 3.10+, Ollama
+**Prerequisites**: Docker Desktop, Python 3.10+, Groq API key
 
 ```bash
 # Clone the repo
@@ -38,12 +41,10 @@ pip install -r requirements.txt
 
 # Copy environment variables
 cp .env.example .env
+# Add your GROQ_API_KEY to .env
 
 # Start PostgreSQL
 docker compose up -d
-
-# Pull the LLM
-ollama pull llama3.2
 
 # Start the server
 uvicorn main:app --reload
@@ -57,8 +58,6 @@ uvicorn main:app --reload
 | GET | `/api/v1/audit/{id}` | Get full audit details |
 | POST | `/api/v1/audit/{id}/review` | Approve or reject an audit (human-in-the-loop) |
 | GET | `/api/v1/audits` | List all audits |
-
-API documentation available at `http://localhost:8000/docs`
 
 ## Example
 
