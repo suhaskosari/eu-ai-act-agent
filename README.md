@@ -2,7 +2,7 @@
 
 A LangGraph-powered agent that scans AI systems for EU AI Act compliance, classifies risk categories, identifies compliance gaps, and generates audit-ready documentation with a human-in-the-loop approval step.
 
-**Live API**: https://eu-ai-act-agent.salmonmeadow-a1fcad59.swedencentral.azurecontainerapps.io/docs
+**Live Demo**: https://suhaskosari.github.io/eu-ai-act-agent/
 
 ## What it does
 
